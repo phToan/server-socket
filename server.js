@@ -12,7 +12,7 @@ const CUSTOMER_ROOM = 'customerRoom';
 const DRIVER_ROOM = 'driverRoom';
 
 const updateSocket = async(socket, userId, type) => {
-    await axios.put('http://192.168.61.246:5000/socket', {
+    await axios.put('https://delivery-server-s54c.onrender.com/socket', {
         user_id: userId,
         type: type,
         socket_id: socket.id
@@ -28,7 +28,7 @@ const updateSocket = async(socket, userId, type) => {
 io.on("connection", async function (socket) {
     const userId = socket.handshake.query.id
     const type = socket.handshake.query.type
-    await axios.post('http://192.168.61.246:5000/socket', {
+    await axios.post('https://delivery-server-s54c.onrender.com/socket', {
         user_id: userId,
         type: type,
         socket_id: socket.id
@@ -71,7 +71,7 @@ io.on("connection", async function (socket) {
     })
 
     socket.on('takeSuccess', async(object) => {
-        await axios.put('http://192.168.1.229:5000/order/customer', {id: object.id, status: 2})
+        await axios.put('https://delivery-server-s54c.onrender.com/order/customer', {id: object.id, status: 2})
          .then(res => {
             if (res.data.err == 0) {
                 io.to(object.socket_id).emit('orderTakenSuccess', object);
@@ -83,7 +83,7 @@ io.on("connection", async function (socket) {
     })
 
     socket.on('deliverySuccess', async(object) => {
-        await axios.put('http://192.168.1.229:5000/order/customer', {id: object.id, status: 3})
+        await axios.put('https://delivery-server-s54c.onrender.com/order/customer', {id: object.id, status: 3})
          .then(res => {
             if (res.data.err == 0) {
                 io.to(object.socket_id).emit('orderDeliverySuccess', object);
