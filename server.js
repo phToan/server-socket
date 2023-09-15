@@ -12,7 +12,7 @@ const CUSTOMER_ROOM = 'customerRoom';
 const DRIVER_ROOM = 'driverRoom';
 
 const updateSocket = async(socket, userId, type) => {
-    await axios.put('http://192.168.1.229:5000/socket', {
+    await axios.put('http://192.168.61.246:5000/socket', {
         user_id: userId,
         type: type,
         socket_id: socket.id
@@ -28,7 +28,7 @@ const updateSocket = async(socket, userId, type) => {
 io.on("connection", async function (socket) {
     const userId = socket.handshake.query.id
     const type = socket.handshake.query.type
-    await axios.post('http://192.168.1.229:5000/socket', {
+    await axios.post('http://192.168.61.246:5000/socket', {
         user_id: userId,
         type: type,
         socket_id: socket.id
